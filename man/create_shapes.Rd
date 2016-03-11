@@ -5,7 +5,7 @@
 \title{Crée des polygones de Voronoi à partir de coordonnées géographiques lon/lat}
 \usage{
 create_shapes(df, ID, x = "longitude", y = "latitude", threshold = NA,
-  threshold_score = "result_score")
+  threshold_score = "result_score", clip_by_chull = FALSE)
 }
 \arguments{
 \item{df}{un dataframe avec les coordonnées géographiques des points ainsi qu'un identifiant par polygone à constituer}

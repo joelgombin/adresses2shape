@@ -86,7 +86,7 @@ voronoipolygons <- function(x) {
 #' @export
 #' @import maptools rgeos
 #'
-create_shapes <- function(df, ID, x = "longitude", y = "latitude", threshold = NA, threshold_score = "result_score") {
+create_shapes <- function(df, ID, x = "longitude", y = "latitude", threshold = NA, threshold_score = "result_score", clip_by_chull = FALSE) {
   if (!is.na(threshold)) {
     filter_criteria <- lazyeval::interp(~ threshold_score > threshold, threshold_score = as.name(threshold_score))
     df <- df %>% filter_(filter_criteria)
@@ -96,6 +96,15 @@ create_shapes <- function(df, ID, x = "longitude", y = "latitude", threshold = N
   res <- voronoipolygons(df %>% ungroup %>% select_(x, y) %>% as.data.frame)
   res2 <- maptools::unionSpatialPolygons(res, df[[ID]])
   res2 <- sp::SpatialPolygonsDataFrame(res2, data.frame(ID = names(res2), row.names = names(res2), stringsAsFactors = FALSE))
+
+  if (clip_by_chull) {
+    ch <- chull(df %>% ungroup %>% select_(x, y) %>% as.data.frame)
+    ch <- df %>% ungroup %>% select_(x, y) %>% slice(c(ch, ch[1])) %>% as.data.frame()
+    ch <- SpatialPolygons(list(Polygons(list(Polygon(ch)), ID=1)))
+    proj4string(ch) <- proj4string(res2)
+    res2 <- gIntersection(res2, ch, byid = TRUE)
+  }
+  res2 <- sp::spChFIDs(res2, unique(df[[ID]]))
   return(res2)
 }
 
@@ -119,8 +128,10 @@ crop_voronois <- function(voronoi_shp, outline) {
     outline <- spTransform(outline, CRS("+init=epsg:4326"))
     message("Transformation du shape en coordonnées géographiques")
   }
+  ids <- names(voronoi_shp)
   res <- rgeos::gIntersection(voronoi_shp, outline, byid = TRUE)
   res <- spChFIDs(res, stringr::str_split_fixed(names(res), " ", n = 2)[,1])
   res <- sp::SpatialPolygonsDataFrame(res, data.frame(ID = stringr::str_split_fixed(names(res), " ", n = 2)[,1], row.names = stringr::str_split_fixed(names(res), " ", n = 2)[,1], stringsAsFactors = FALSE))
+  res <- sp::spChFIDs(res, ids)
   return(res)
 }
