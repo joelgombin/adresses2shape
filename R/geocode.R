@@ -94,7 +94,7 @@ create_shapes <- function(df, ID, x = "longitude", y = "latitude", threshold = N
 #  df <- df %>% dplyr::group_by_(IDs)
   df <- df %>% dplyr::distinct_(x, y)
   res <- voronoipolygons(df %>% ungroup %>% select_(x, y) %>% as.data.frame)
-  res2 <- maptools::unionSpatialPolygons(res, df[[ID]])
+  res2 <- unionSpatialPolygons(res, df[[ID]])
   res2 <- sp::SpatialPolygonsDataFrame(res2, data.frame(ID = names(res2), row.names = names(res2), stringsAsFactors = FALSE))
 
   if (clip_by_chull) {

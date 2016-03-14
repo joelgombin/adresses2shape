@@ -14,7 +14,7 @@ Imports: magrittr,
          readr,
          stringr,
          deldir,
-         sp,
-         maptools,
-         rgeos
+         sp
+Depends: rgeos,
+         maptools
 RoxygenNote: 5.0.1
