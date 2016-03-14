@@ -104,7 +104,7 @@ create_shapes <- function(df, ID, x = "longitude", y = "latitude", threshold = N
     proj4string(ch) <- proj4string(res2)
     res2 <- gIntersection(res2, ch, byid = TRUE)
   }
-  res2 <- sp::spChFIDs(res2, unique(df[[ID]]))
+  res2 <- sp::spChFIDs(res2, as.character(unique(df[[ID]])))
   return(res2)
 }
 
