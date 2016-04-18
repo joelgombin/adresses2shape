@@ -33,7 +33,7 @@ geocode <- function(data, adresses, codeINSEE = NULL) {
   if (stringr::str_detect(queryResults$headers$`content-type`, "text/csv")) {
     locations <- readr::read_csv(queryResults$content, col_types = paste0("cc", paste0(rep("?", 13), collapse = "")))
   } else {
-    stop("Erreur sur le résultat.")
+    stop("Erreur sur le résultat, code de l'erreur : ", httr::status_code(queryResults))
   }
 
   return(dplyr::left_join(data, locations))
