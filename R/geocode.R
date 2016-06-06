@@ -81,6 +81,7 @@ voronoipolygons <- function(x) {
 #' @param y nom de la colonne contenant les latitudes
 #' @param threshold seuil de confiance dans les données géolocalisées à respecter. Si \code{NA} (défaut), pas de seuil.
 #' @param threshold_score nom de la colonne contenant le degré de confiance dans les données géolocalisées. Par défaut, \code{"result_score"}, nom donné par l'API adresses
+#' @param clip_by_chull valeur logique. Si \code{TRUE}, les polygones de Voronoi sont réduits à leur enveloppe complexe (le pavage ne couvre donc pas l'intégralité de l'espace mais se limite aux espaces sur lesquels il y a des adresses). Cela est utile par exemple lorsque d'importants espaces non habités existent. \code{FALSE} par défaut.
 #'
 #' @return un objet \code{SpatialPolygonsDataFrame} contenant les polygones de Voronoi recherchés
 #' @export
