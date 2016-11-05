@@ -11,7 +11,7 @@ paris <- rgdal::readOGR("/media/Data/Dropbox/Cartographie/arrondissements paris"
 cl <- get_default_cluster()
 cl %>%
   cluster_library("dplyr") %>%
-  cluster_library("Adresses2Shape") %>%
+  cluster_library("adresses2shape") %>%
   cluster_library("maptools") %>%
   cluster_library("rgeos") %>%
   cluster_assign_value("paris", value = paris)

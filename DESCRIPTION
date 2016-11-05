@@ -1,7 +1,7 @@
 Package: adresses2shape
 Type: Package
 Title: Reconstituer facilement des polygones à partir d'adresses
-Version: 0.1.0
+Version: 0.1.1
 Author: Joel Gombin
 Maintainer: Joel Gombin <joel.gombin@gmail.com>
 Description: Ce package permet, à partir d'un ensemble d'adresses, de les géolocaliser grâce à l'API Adresses (basée sur la BANO) puis de générer les polygones auxquels appartiennent ces adresses.
