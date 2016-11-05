@@ -106,6 +106,7 @@ create_shapes <- function(df, ID, x = "longitude", y = "latitude", threshold = N
     res2 <- gIntersection(res2, ch, byid = TRUE)
   }
   res2 <- sp::spChFIDs(res2, as.character(unique(df[[ID]])))
+  res2 <- sp::SpatialPolygonsDataFrame(res2, data.frame(ID = names(res2), row.names = names(res2), stringsAsFactors = FALSE))
   return(res2)
 }
 
