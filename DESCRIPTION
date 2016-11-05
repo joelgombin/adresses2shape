@@ -4,7 +4,7 @@ Title: Reconstituer facilement des polygones à partir d'adresses
 Version: 0.1.1
 Author: Joel Gombin
 Maintainer: Joel Gombin <joel.gombin@gmail.com>
-Description: Ce package permet, à partir d'un ensemble d'adresses, de les géolocaliser grâce à l'API Adresses (basée sur la BANO) puis de générer les polygones auxquels appartiennent ces adresses.
+Description: Ce package permet, à partir d'un ensemble d'adresses, de les geolocaliser grace a l'API Adresses (basee sur la BANO) puis de generer les polygones auxquels appartiennent ces adresses.
 License: MIT
 LazyData: TRUE
 Imports: magrittr,
