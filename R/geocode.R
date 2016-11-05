@@ -93,7 +93,7 @@ create_shapes <- function(df, ID, x = "longitude", y = "latitude", threshold = N
     df <- df %>% filter_(filter_criteria)
   }
 #  df <- df %>% dplyr::group_by_(IDs)
-  df <- df %>% dplyr::distinct_(x, y)
+  df <- df %>% dplyr::distinct_(x, y, .keep_all = TRUE)
   res <- voronoipolygons(df %>% ungroup %>% select_(x, y) %>% as.data.frame)
   res2 <- unionSpatialPolygons(res, df[[ID]])
   res2 <- sp::SpatialPolygonsDataFrame(res2, data.frame(ID = names(res2), row.names = names(res2), stringsAsFactors = FALSE))
